@@ -25,14 +25,14 @@ function openItem(itemUrl) {
 }
 
 
-axios.get('https://www.therapie.de/psychotherapie/rinderspacher/')
+axios.get('https://www.therapie.de/psychotherapie/zillmann/')
     .then(response => {
         const $ = cheerio.load(response.data)
 
         let nameData = $('div.therapist-name > h1').text()
-        let name = nameData.slice(2);
-
         let emailData = $('div.therapist-details-mail.icon-mail > a').text()
-        let email = emailData.slice(17).slice(0, 28)
-        console.log('email', email, 'name', name)
+
+        let mail = emailData.trim()
+        let name = nameData.trim()
+        console.log('email', mail, 'name', name)
     })
