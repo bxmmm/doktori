@@ -12,7 +12,7 @@ axios.get(URL)
         // selektor svih a tagova i kreiranje urlova za doktore, te pokretanje funkcije za otvaranje pojedinacnog itema
         $('.search-results-details-container a').map(function(i, item) { 
         let itemUrl = `https://www.therapie.de/${$(item).attr('href')}`;
-
+        // funkcija za pojedinacne iteme
          openItem(itemUrl)
        })
     })
@@ -25,7 +25,8 @@ function openItem(itemUrl) {
 }
 
 
-axios.get('https://www.therapie.de/psychotherapie/zillmann/')
+// ovo treba u funkciju da otvara pojedinacne doktore
+axios.get('https://www.therapie.de/psychotherapie/assmann/')
     .then(response => {
         const $ = cheerio.load(response.data)
 
