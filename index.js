@@ -35,4 +35,4 @@ axios.get('https://www.therapie.de/psychotherapie/rinderspacher/')
         let emailData = $('div.therapist-details-mail.icon-mail > a').text()
         let email = emailData.slice(17).slice(0, 28)
         console.log('email', email, 'name', name)
-    })
+    })git push origin master
