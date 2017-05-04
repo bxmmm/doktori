@@ -25,13 +25,14 @@ function openItem(itemUrl) {
 }
 
 
-axios.get('https://www.therapie.de/psychotherapie/david.pfister/')
+axios.get('https://www.therapie.de/psychotherapie/rinderspacher/')
     .then(response => {
         const $ = cheerio.load(response.data)
 
-        let mail = $('#microsite > div:nth-child(1) > div.clearfix > div.therapist-name > div.therapist-details-mail.icon-mail > a')
+        let nameData = $('div.therapist-name > h1').text()
+        let name = nameData.slice(2);
 
-        let test = $('a').attr('itemprop', 'email')
-        console.log('test', test)
-        // console.log(mail, 'mejl')
+        let emailData = $('div.therapist-details-mail.icon-mail > a').text()
+        let email = emailData.slice(17)
+        console.log('email', email, 'name', name)
     })
