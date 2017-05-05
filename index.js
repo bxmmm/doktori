@@ -24,7 +24,7 @@ function getData() {
 		page = page + 1
 		URL = `https://www.therapie.de/psychotherapie/-ergebnisse-/?ort=Berlin&abrechnungsverfahren=2&page=${page}`
 		console.log('url', URL)
-		// obzirom da ima 73 page-a ne treba vjecno pozivati funkciju
+		// obzirom da ima 73 page-a ne treba vjecno pozivati funkciju, jer i dalje bude status 200 kad predjem max br stranica
 		if(page < 74) {
 			getData()
 		}
@@ -50,11 +50,26 @@ function openItem(itemUrl) {
 
 		let nameData = $('div.therapist-name > h1').text();
 		let emailData = $('div.therapist-details-mail.icon-mail > a').text();
-
+		let adress = null
+		let postalCode = null
+		let city = null
+		let cityData = $('#adresse').children().each(function(e, elem) {
+			let data = $(this)
+			if(data["0"].attribs.itemprop === 'streetAddress') {
+				adress = data.text()
+			}
+			if (data["0"].attribs.itemprop === 'postalCode') {
+				postalCode = data.text()
+			}
+			if (data["0"].attribs.itemprop === 'addressLocality') {
+				city = data.text()
+			}
+			// console.log(data.text())
+		})
 		let mail = emailData.trim();
 		let name = nameData.trim();
 		if(mail.length > 0) {
-			let obj = { name, mail }
+			let obj = { name, mail, adress, city, postalCode }
 			itemResults.push(obj)
 		}
 	})
