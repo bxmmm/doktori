@@ -11,6 +11,6 @@
   "dependencies": {
     "axios": "^0.16.1",
     "cheerio": "^0.22.0",
-    "json2csv": "^3.7.3"
+    "json-2-csv": "^2.1.1"
   }
 }

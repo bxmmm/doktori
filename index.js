@@ -1,7 +1,7 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
-const json2csv = require('json2csv');
 const fs = require('fs');
+const converter = require('json-2-csv');
 
 
 let page = 1
@@ -30,20 +30,20 @@ function getData() {
 		}
 	})
 	.then(() => {
-		let fields = ['Name', 'Email'];
-		let csv = json2csv({ data: itemResults, fields: fields });
-		
-		fs.writeFile('doktori.csv', csv, function(err) {
-			if (err) throw err;
-			console.log('file saved');
-		});
+		let json2csvCallback = function (err, csv) {
+				if (err) throw err;
+					fs.writeFile('doktori.csv', csv, function(err) {
+				if (err) throw err;
+				console.log('saved');
+			});
+		};
+		converter.json2csv(itemResults, json2csvCallback);
 	})
 	.catch(err => console.log('umrla konekcija'))
 }
 
-
+// funkcija za otvaranje pojedinacnih doktora
 function openItem(itemUrl) {
-	// ovo treba u funkciju da otvara pojedinacne doktore
 	axios.get(itemUrl)
 	.then(response => {
 		const $ = cheerio.load(response.data);
